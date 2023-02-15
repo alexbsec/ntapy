@@ -1,6 +1,7 @@
 import requests
 import json
-import socket
+from socket import gethostbyname
+from warnings import warn
 
 class Coordinates:
 
@@ -9,14 +10,24 @@ class Parser:
 class CorrelateIP:
 
     def __init__(self, target_url, ip=None, location_finder_url='https://ipapi.co/'):
-        self.target_url
         self.ip = ip
         self.location_finder_url = location_finder_url
+
+        if "https://" in target_url:
+            target_url = target_url[8:]
+        elif "http://" in target_url:
+            target_url = target_url[7:]
+
+        self.target_url = target_url
 
         if ip == None:
             self.ip = self.get_ip()
 
     def get_ip(self):
+        try:
+            ip = gethostbyname(self.target_url)
+        except:
+
         
 
 
